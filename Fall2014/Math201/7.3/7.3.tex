@@ -1,0 +1,84 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+% \text{normal text} will give normal text inside math area
+\usepackage{amsopn}
+\usepackage{amsfonts}
+% \mathbb{text} will give double lined text
+\usepackage{mathtools}
+% \mathclap{text} remove box around text
+\usepackage{xcolor}
+\usepackage{mathrsfs}
+% \mathscr{text} will give script letters
+\usepackage{xfrac}
+% \sfrac{number}{number} gives flatter fractions
+
+% bold symbols - \boldsymbol or \pmb (poor mans bold)
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+
+\renewcommand{\L}[1] {\ensuremath{\mathscr{L}\left\{#1\right\}}}
+\newcommand{\Li}[1] {\ensuremath{\mathscr{L}^{-1}\left\{#1\right\}}}
+
+\newcommand{\U}[1] {\ensuremath{\mathscr{U}\left(#1\right)}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\highlight}[2][yellow]{\mathchoice%
+  {\colorbox{#1}{$\displaystyle#2$}}%
+  {\colorbox{#1}{$\textstyle#2$}}%
+  {\colorbox{#1}{$\scriptstyle#2$}}%
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}}%
+  
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    7.3 - Operational Properties I\\[20px]
+    7.3.1 - Translation on S-axis\\[20px]
+    First Translation theorem:\\
+    $\L{f(t)} = F(s)$ and $a$ is a real number, then $\L{e^{at}f(t)} = F(s)|_{s \to s-a} = F(s-a)$\\[20px]
+    
+    Examples: Find\\[20px]
+    1) $\L{9e+{3t} - 4te^{3t} + 10e^{3t}\sin{\frac{t}{2}}}$\\
+    $ = \L{9e^{3t}} - \L{4te^{3t}} + \L{10e^{3t}\sin{\frac{t}{2}}} $\\
+    $ = 9\L{e^{3t}} - 4\L{te^{3t}} + 10\L{e^{3t}\sin{\frac{t}{2}}} $\\
+    $ = 9\L{1}|_{s \to s-3} - 4\L{t}|_{s \to s-3} + 10\L{\sin{\frac{t}{2}}}|_{s \to s-3} $\\
+    $ = 9\frac{1}{s-3} - 4\frac{1}{(s-3)^2} + 10\frac{\sfrac{1}{2}}{(s - 3)^2 + \sfrac{1}{4}} $\\[20px]
+    2) $\Li{\frac{2s + 5}{s^2 + 6s + 34}}$\\
+    $ = \Li{\frac{2s + 5}{(s+3)^2 + 25}} = \Li{2\frac{s + 3}{s^2 + 25} - \frac{1}{s^2 + 25}} $\\
+    $ = \Li{2\frac{s + 3}{s^2 + 25}} - \frac{1}{5}\Li{\frac{51}{s^2 + 25}} $\\
+    $ = 2e^{-3t}\cos{5t} -  \frac{1}{5}e^{-3t}\sin{5t} $\\[20px]
+    Proof: $ \L{e^{at}f(t)} = \int_0^\infty{e^{-st}e^{at}f(t)\,dt} = \int_0^\infty{e^{-(s-a)t}f(t)\,dt} = F(s)|_{s \to s-a} $\\[20px]
+    Inverse form of the first translation thm:\\
+    $$ \Li{F(s-a)} = \Li{F(s)|_{s \to s-a}} = e^{at}f(t) $$\\
+    Ex: solve $ y'' - y' = e^t\cos{t}, y(0) = 0, y'(0) = 0 $\\[10px]
+    $ (s^2Y(s) - sy(0) - y'(0)) - (sY(s) - y(0)) = \frac{s-1}{(s-1)^2 + 1} $\\[10px]
+    $ (s^2 - s)Y(s) = \frac{s-1}{(s-1)^2 + 1} $\\[10px]
+    $ Y(s) = \frac{s-1}{s(s-1)((s-1)^2 + 1)} = \frac{1}{s((s-1)^2 + 1)} $\\[10px]
+    $ Y(s) = \frac{1}{2}\cdot\frac{1}{s} - \frac{1}{2}\cdot\frac{s-1}{(s-1)^2 + 1} + \frac{1}{2}\cdot\frac{1}{(s-1)^2 + 1} $\\[10px]
+    $ y(t) = \Li{Y(s)} = \frac{1}{2} - \frac{1}{2}e^t\cos{t} + \frac{1}{2}e^t\sin{t} $\\[20px]
+    Definition: (Unit step function)\\
+    The unit step function, a.k.a. the Heaveside function, is denoted $ U(t-a) $\\
+    and is defined by $ \U{t-a} = \begin{cases}
+        0 & 0 \le t < a\\
+        1 & t \ge a
+    \end{cases} $\\[10px]
+    Ex: $g(t) = (3t-4)\U{t-1}$ may be written as $g(t) = \begin{cases} 0 & 0 \le t < 1\\ 3t-4 & t \ge 1 \end{cases} $\\[20px]
+    Second Translation Thm:\\
+    If $F(s) = \L{f(t)}$ and $a > 0$ then $\L{f(t-a)\U{t-a}} = e^{-as}F(s)$\\[20px]
+    ex: $ \L{\cos{2t}\U{t-\pi}} $\\[10px]
+    $ = \L{\cos{2(t-\pi)}\U{t-\pi}} $\\[10px]
+    $ = e^{-\pi s}\frac{s}{s^2 + 4} $\\[10px]
+    
+
+\end{document}
+
+
+

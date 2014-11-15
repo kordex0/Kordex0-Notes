@@ -1,0 +1,69 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+% \text{normal text} will give normal text inside math area
+\usepackage{amsopn}
+\usepackage{amsfonts}
+% \mathbb{text} will give double lined text
+\usepackage{mathtools}
+% \mathclap{text} remove box around text
+\usepackage{xcolor}
+\usepackage{mathrsfs}
+% \mathscr{text} will give script letters
+\usepackage{xfrac}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+
+\renewcommand{\L}[1] {\ensuremath{\mathscr{L}\left\{#1\right\}}}
+\newcommand{\Li}[1] {\ensuremath{\mathscr{L}^{-1}\left\{#1\right\}}}
+
+\newcommand{\highlight}[2][yellow]{\mathchoice%
+  {\colorbox{#1}{$\displaystyle#2$}}%
+  {\colorbox{#1}{$\textstyle#2$}}%
+  {\colorbox{#1}{$\scriptstyle#2$}}%
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}}%
+  
+\setlength{\parindent}{0pt}
+
+\begin{document}
+    7.2 - Inverse Transforms and Transforms of derivatives\\[20px]
+    Lapace inverse is linear\\[20px]
+    Examples:\\[20px]
+    1) $\Li{\frac{1}{s^6}} = \Li{\frac{1}{5!}\cdot\frac{5!}{s^{5+1}}} = \frac{1}{120}t^5$\\[20px]
+    
+    2) $\Li{\frac{1}{s^2 + 5}} = \frac{1}{\sqrt{5}}\Li{\frac{\sqrt{5}}{s^2+5}} = \frac{1}{\sqrt{5}}\sin{\sqrt{5}t}$\\[20px]
+    
+    3) $\Li{\frac{-2s + 6}{s^2 + 4}} = -2\Li{\frac{s}{s^2+ 4}} + 3\Li{\frac{2}{s^2 + 4}} = -2\cos{2t} + 3\sin{2t} $\\[20px]
+    
+    4) $\Li{\frac{6x^2+50}{(s+3)(s^2+4)}} = \Li{\frac{8}{s+3}}+\Li{\frac{-2}{s^2+4}}+\Li{\frac{6}{s^2+4}}\\ = 8e^{-3t}-2cos{2t}+3sin{2t}$\\[20px]
+    
+    We have used the fact that the Laplace transform is a linear operator\\
+    $$ \Li{cf(t) + g(t)} = c\Li{f(t)} + \Li{g(t)}$$\\[20px]
+    Transforms of derivatives given $\L{f(t)} = F(t)$\\[20px]
+    $$\L{f'(t)} = sF(s) - f(0)$$\\
+    $$\L{f''(t)} = s^2F(s) - sf(0) - f'(0)$$\\
+    $$\L{f'''(t)} = s^3F(s) - s^2f(0) - sf'(0) - f''(0)$$\\[20px]
+    
+    Proof of $L(f'(t))$\\[20px]
+    $$ \L{f'(t)} = \int_0^{\infty}{e^{-st}f'(t)\,dt}$$
+    $$ = e^{-st}f(t)|_0^{\infty} + s\int_0^{\infty}{e^{-st}f(t)\,dt}$$
+    $$ = 0 - f(0) + sF(s) $$\\
+    
+    Ex2\\[20px]
+    $$ y'' - 3y' + 2y = e^{-4t} , y(0)=1, y'(0) = 5$$\\
+    $$ \L{y''} - 3\L{y'} + 2\L{y} = \L{e^{-4t}} $$
+    $$ = (s^2Y(s) - sy(0) - y'(0)) - 3(sY(s) - y(0)) + 2(Y(s)) = \frac{1}{s+4}$$\\
+    $$ Y(s)(s^2 - 3s + 2) = s + 2 + \frac{1}{s+4}$$
+    $$ Y(s) = \frac{s^2 + 6s + 9}{(s^2 - 3s + 2)(s + 4)} $$
+    $$ Y(s) = \frac{s^2 + 6s + 9}{(s-1)(s-2)(s + 4)} $$
+    $$ = \frac{-\sfrac{16}{5}}{s-1} + \frac{\sfrac{25}{6}}{s-2} + \frac{\sfrac{1}{30}}{s + 4}$$
+    $$ \Li{Y(s)} = -\frac{16}{4}e^t + \frac{25}{6}e^{2t} + \frac{1}{30}e^{-4t} $$\\
+    Solve for $Y(s)$, then find $y(t) = \Li{Y(s)}$
+    
+    
+    
+\end{document}
+
+
+
